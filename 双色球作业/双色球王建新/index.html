@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双色球</title>
+    <style>
+        body {
+            user-select: none;
+        }
+
+        .ballzhu {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .redBall {
+            display: flex;
+            width: 680px;
+            flex-wrap: wrap;
+        }
+
+        /* 红色球经过效果 */
+        .redBall div:hover {
+            background-color: pink;
+            color: white;
+        }
+
+        .redBallcao {
+            position: absolute;
+            top: 210px;
+            display: flex;
+        }
+
+        .redBallcao:hover {
+            color: black;
+        }
+
+        /* 红操作样式 */
+        .redBallcao input {
+            width: 30px;
+            height: 16px;
+            vertical-align: bottom;
+        }
+
+        .redBallcao i {
+            margin-left: 8px;
+            font-style: normal;
+        }
+
+        .redBallcao i:hover {
+            cursor: pointer;
+        }
+
+        .blueBall {
+            position: relative;
+            display: flex;
+            width: 400px;
+            flex-wrap: wrap;
+            margin-left: 60px;
+        }
+
+        .blueBall div:hover {
+            background-color: #afd3f8;
+            color: white;
+
+        }
+
+        .blueBallcao {
+            position: absolute;
+            top: 210px;
+            right: 210px;
+        }
+
+        .blueBallcao input {
+            width: 30px;
+            height: 16px;
+            vertical-align: bottom;
+        }
+
+        .blueBallcao i {
+            margin-left: 8px;
+            font-style: normal;
+        }
+
+        .blueBallcao i:hover {
+            cursor: pointer;
+        }
+
+        /* 蓝色球经过效果 */
+
+        /* 球的样式*/
+        .redBall div,
+        .blueBall div {
+            width: 55px;
+            height: 55px;
+            line-height: 55px;
+            background-color: #d2d2d2;
+            text-align: center;
+            border-radius: 50%;
+            margin-top: 10px;
+            margin-left: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 多少球 */
+        .qiu {
+            position: absolute;
+            top: 280px;
+            left: 600px;
+        }
+
+        /* 随机注 */
+        .szhu1 {
+            list-style-type: none;
+            position: absolute;
+            top: 480px;
+            right: 500px;
+        }
+
+        .szhu1 li {
+            margin-top: 8px;
+        }
+
+        .qian {
+            width: 360px;
+            height: 120px;
+            overflow-y: auto;
+            position: absolute;
+            top: 490px;
+            left: 500px;
+        }
+
+        /* 列表 */
+        ul li {
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        ul {
+            height: 150px;
+            overflow-y: auto;
+        }
+
+        /* 投注 */
+        button {
+            width: 100px;
+            position: absolute;
+            left: 700px;
+            top: 400px;
+        }
+
+        .qian li {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 几注多少钱 */
+        .total-wrap {
+            height: 60px;
+            font-size: 14px;
+            position: absolute;
+            top: 640px;
+            left: 620px;
+        }
+
+        /*增添倍数模块[[*/
+        .b-block {
+            position: relative;
+            height: 27px;
+            width: 87px;
+            line-height: 27px;
+            display: inline-block;
+            padding: 1px;
+            bottom: -10px;
+            *bottom: -5px;
+        }
+
+        .b-block input {
+            position: absolute;
+            border: 1px solid #c9c9c9;
+            width: 48px;
+            height: 22px;
+            background-color: #fff;
+            vertical-align: middle;
+            text-align: center;
+            font: bold 16px/23px Arial;
+            left: 19px;
+            _left: 18px;
+        }
+
+        .b-block .toward,
+        .cp-choose .b-block .forward,
+        .b-block .forward {
+            position: absolute;
+            width: 20px;
+            vertical-align: middle;
+            background: url("./img/ssq_button_ver3.0.jpg") no-repeat scroll 0 0 transparent;
+        }
+
+        .b-block .toward {
+            height: 25px;
+            right: 0px;
+            text-indent: -9999px;
+            overflow: hidden;
+            position: absolute;
+            background-position: -38px -117px;
+            cursor: pointer;
+        }
+
+        .b-block .forward {
+            height: 25px;
+            left: 0px;
+            text-indent: -9999px;
+            overflow: hidden;
+            position: absolute;
+            background-position: 0 -117px;
+            cursor: pointer;
+        }
+
+        /*增添倍数模块]]*/
+        /* 投注 */
+        #addToList {
+            background: url("./img/ssq_button_ver3.0.jpg") no-repeat 0 -236px;
+            border: none;
+            cursor: pointer;
+            width: 182px;
+            height: 58px;
+            display: inline-block;
+            text-align: center;
+            position: absolute;
+            top: 400px;
+            left: 660px;
+        }
+
+        #addToList:hover {
+            background-position: -184px -236px;
+        }
+
+        #addToList::after {
+            content: '';
+            display: inline-block;
+            width: 182px;
+            height: 24px;
+            background: url("./img/ssq_button_ver3.0.jpg") no-repeat 18px -89px #fef9f3;
+            margin-top: 34px;
+        }
+
+        #addToList.change {
+            background-position: -111px -200px;
+        }
+
+        #addToList.change:hover {
+            background-position: -297px -200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 球的主体部分 -->
+    <div class="ballzhu">
+        <div class="redBall"> </div>
+        <div class="redBallcao">
+            <!-- <input type="number" min="6" step="1" placeholder="6" max="19"> -->
+            <select id="jx_red">
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+            </select>
+            <i class="ji">机选红球</i><i class="qingkong">清空</i>
+        </div>
+        <div class="blueBall"></div>
+        <div class="blueBallcao">
+            <!-- <input type="number" min="1" step="1" placeholder="1" max="14"> -->
+            <select id="jx_blue">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+            </select>
+            <i class="bl">机选蓝球</i>
+            <i class="qingkong1">清空</i>
+        </div>
+    </div>
+    <!-- 几个球 -->
+    <div class="qiu"><span class="s1">你已经选择了0个红球，</span><span class="s2">0个蓝球，</span><span class="s5">共1注，</span><span class="s3">共0元</span></div>
+    <!-- 注列表 -->
+    <ul class="szhu1">
+        <li class="yizhu">机选1注</li>
+        <li class="wuzhu">机选5注</li>
+        <li class="shizhu">机选10注</li>
+        <li class="qingkongliebiao">清空列表</li>
+    </ul>
+    <ul class="qian">
+
+    </ul>
+    <!-- 投注 -->
+    <a id="addToList"></a>
+    <div class="total-wrap clearfix">
+        共<span id="totalZhuShu">0</span>注 &nbsp; &nbsp;
+        我要买
+        <span class="b-block"> <span class="forward down" title="减少">减少</span><input type="text" id="beishu" value="1"
+                maxlength="4"><span hidefocus="true" class="toward up" title="增加">增加</span></span>
+        倍 &nbsp; &nbsp;
+        共<span id="totalMoney" class="red">0</span>元
+    </div>
+    <script>
+        // 生成红球
+        var redBall = document.querySelector(".redBall");
+        for (var i = 1; i < 34; i++) {
+            var redB = document.createElement("div")
+            redB.innerHTML = i < 10 ? "0" + i : i;
+            redBall.appendChild(redB)
+        }
+        // 生成蓝球
+        var blueBall = document.querySelector(".blueBall");
+        for (var i = 1; i < 18; i++) {
+            var blueB = document.createElement("div")
+            blueB.innerHTML = i < 10 ? "0" + i : i;
+            blueBall.appendChild(blueB)
+        }
+
+        // 选择红球返回红球个数
+        var reqiu = redBall.querySelectorAll("div")
+        var Arrayr = []
+        for (var i = 0; i < reqiu.length; i++) {
+            // 给div添加flag属性判断是否被点击
+            reqiu[i].setAttribute("flag", "0")
+            reqiu[i].addEventListener("click", function (e) {
+                var flag = e.target.getAttribute("flag")
+                if (flag == 0) {
+                    e.target.style.backgroundColor = "red";
+                    e.target.setAttribute("flag", "1")
+                    var inu = e.target.innerHTML
+                    Arrayr.push(inu)
+                    // console.log(Arrayr)
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                    qian()
+                } else {
+                    e.target.style.backgroundColor = "#d2d2d2";
+                    e.target.setAttribute("flag", "0")
+                    for (var i = 0; i < Arrayr.length; i++) {
+                        if (e.target.innerHTML == Arrayr[i]) {
+                            Arrayr.splice(i, 1)
+                        }
+                    }
+                    // console.log(Arrayr)
+                    qian()
+
+
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                }
+            })
+        }
+        // 选择蓝球返回蓝球个数
+        var lanqiu = blueBall.querySelectorAll("div");
+        var Arrayb = []
+        for (var i = 0; i < lanqiu.length; i++) {
+            lanqiu[i].setAttribute("flag", "0")
+            lanqiu[i].addEventListener("click", function (e) {
+                var flag = e.target.getAttribute("flag")
+                if (flag == 0) {
+                    e.target.style.backgroundColor = "blue";
+                    e.target.setAttribute("flag", "1")
+                    var inu = e.target.innerHTML
+                    Arrayb.push(inu)
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                    qian()
+                } else {
+                    e.target.style.backgroundColor = "#d2d2d2";
+                    e.target.setAttribute("flag", "0")
+                    for (var i = 0; i < Arrayb.length; i++) {
+                        if (e.target.innerHTML == Arrayb[i]) {
+                            Arrayb.splice(i, 1)
+                        }
+                    }
+                    console.log(Arrayb)
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                    qian()
+                }
+            })
+        }
+
+        function qian() {
+            if (Arrayr.length > 5 && Arrayb.length > 0) {
+                document.querySelector(".s3").innerHTML = "，共2元"
+            }
+        }
+        // 投注
+        document.querySelector("#addToList").addEventListener("click", function () {
+            if (!(Arrayr.length>=6&& Arrayb.length>= 1)) {
+                alert("请至少选择6个红球，1个蓝球。现已选择" + Arrayr.length + "个红球" + Arrayb.length + "个蓝球")
+            } else {
+                var pl = document.createElement("li");
+                pl.innerHTML = Arrayr.toString() + "|" + Arrayb.toString() + "<span class ='juy'>2元</span>" +
+                    "<span class ='juy  xiu'>修改</span>" + "<span class ='shanc juy'>删除</span>"
+                document.querySelector(".qian").append(pl)
+                for (var i = 0; i < reqiu.length; i++) {
+                    reqiu[i].setAttribute("flag", "0")
+                    Arrayr = []
+                    reqiu[i].style.backgroundColor = "#d2d2d2"
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                }
+                for (var i = 0; i < lanqiu.length; i++) {
+                    lanqiu[i].setAttribute("flag", "0")
+                    Arrayb = []
+                    lanqiu[i].style.backgroundColor = "#d2d2d2"
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                }
+                // 共多少注
+                document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+            }
+        })
+        // 机选红球
+        document.querySelector(".ji").addEventListener("click", function () {
+        
+            for (var i = 0; i <6; i++) {
+
+                var plk = Math.floor((Math.random()) * (33 - 0 + 0) + 0)
+                if (plk == Arrayr[i]) {
+                    Arrayr.splice(i, 1);
+                    i--
+                } else {
+                    reqiu[plk].setAttribute("flag", "1")
+                    reqiu[plk].style.backgroundColor = "red"
+                    var okl = reqiu[plk].innerHTML
+                    Arrayr.push(okl)
+                    //   console.log(Arrayr)
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                }
+            }
+        })
+        // 清空
+        document.querySelector(".qingkong").addEventListener("click", function () {
+            for (var i = 0; i < reqiu.length; i++) {
+                if (reqiu[i].getAttribute("flag") == 1) {
+                    reqiu[i].setAttribute("flag", "0")
+                    reqiu[i].style.backgroundColor = "#d2d2d2"
+                    Arrayr = []
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                } else {
+
+                }
+            }
+        })
+        // 机选篮球
+        document.querySelector(".bl").addEventListener("click", function () {
+            for (var i = 0; i < 1; i++) {
+                var plk = Math.floor((Math.random()) * (17 - 0 + 0) + 0)
+                if (plk == Arrayb[i]) {
+                    Arrayr.slice(i, 1);
+                    i--
+                } else {
+                    lanqiu[plk].setAttribute("flag", "1")
+                    lanqiu[plk].style.backgroundColor = "blue"
+                    var okl = lanqiu[plk].innerHTML
+                    Arrayb.push(okl)
+                    //   console.log(Arrayb)
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                }
+            }
+        })
+        // 清空
+        document.querySelector(".qingkong1").addEventListener("click", function () {
+            for (var i = 0; i < lanqiu.length; i++) {
+                if (lanqiu[i].getAttribute("flag") == 1) {
+                    lanqiu[i].setAttribute("flag", "0")
+                    lanqiu[i].style.backgroundColor = "#d2d2d2"
+                    Arrayb = []
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                } else {
+
+                }
+            }
+            
+        })
+        // 清空列表
+        document.querySelector(".qingkongliebiao").addEventListener("click", function () {
+            var ojiu = document.querySelector(".qian").children
+            for (var i = ojiu.length; i > 0; i--) {
+                ojiu[ojiu.length - 1].remove()
+            }
+            document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 机选一注
+        document.querySelector(".yizhu").addEventListener("click", function () {
+            for (var i = 0; i < 6; i++) {
+                var plk = Math.floor((Math.random()) * (33 - 0 + 0) + 0)
+                if (plk == Arrayr[i]) {
+                    Arrayr.splice(i, 1);
+                    i--
+                } else {
+                    var okl = reqiu[plk].innerHTML
+                    Arrayr.push(okl)
+                }
+            }
+            for (var i = 0; i < 1; i++) {
+                var plk = Math.floor((Math.random()) * (17 - 0 + 0) + 0)
+                if (plk == Arrayb[i]) {
+                    Arrayr.splice(i, 1);
+                    i--
+                } else {
+                    var okl = lanqiu[plk].innerHTML
+                    Arrayb.push(okl)
+                }
+            }
+            var pl = document.createElement("li");
+            pl.innerHTML = Arrayr.toString() + "|" + Arrayb.toString() + "<span class ='juy'>2元</span>" +
+                "<span class ='juy xiu'>修改</span>" + "<span class ='shanc juy'>删除</span>"
+            document.querySelector(".qian").append(pl)
+            Arrayr = []
+            Arrayb = []
+            // 共多少注
+            document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 机选五注
+        document.querySelector(".wuzhu").addEventListener("click", function () {
+            // debugger;
+            for (var b = 0; b < 5; b++) {
+                for (var i = 0; i < 6; i++) {
+                    var plk = Math.floor((Math.random()) * (33 - 0 + 0) + 0)
+                    if (plk == Arrayr[i]) {
+                        Arrayr.splice(i, 1);
+                        i--
+                    } else {
+                        var okl = reqiu[plk].innerHTML
+                        Arrayr.push(okl)
+                    }
+                }
+                for (var i = 0; i < 1; i++) {
+                    var plk = Math.floor((Math.random()) * (17 - 0 + 0) + 0)
+                    if (plk == Arrayb[i]) {
+                        Arrayr.splice(i, 1);
+                        i--
+                    } else {
+                        var okl = lanqiu[plk].innerHTML
+                        Arrayb.push(okl)
+                    }
+                }
+                var pl = document.createElement("li");
+                pl.innerHTML = Arrayr.toString() + "|" + Arrayb.toString() + "<span class ='juy'>2元</span>" +
+                    "<span class ='juy xiu'>修改</span>" + "<span class ='shanc juy'>删除</span>"
+                document.querySelector(".qian").append(pl)
+                Arrayr = []
+                Arrayb = []
+            }
+            // 共多少注
+            document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 机选十注
+        document.querySelector(".shizhu").addEventListener("click", function () {
+            for (var b = 0; b < 10; b++) {
+                for (var i = 0; i < 6; i++) {
+                    var plk = Math.floor((Math.random()) * (33 - 0 + 0) + 0)
+                    if (plk == Arrayr[i]) {
+                        Arrayr.splice(i, 1);
+                        i--
+                    } else {
+                        var okl = reqiu[plk].innerHTML
+                        Arrayr.push(okl)
+                    }
+                }
+                for (var i = 0; i < 1; i++) {
+                    var plk = Math.floor((Math.random()) * (17 - 0 + 0) + 0)
+                    if (plk == Arrayb[i]) {
+                        Arrayr.splice(i, 1);
+                        i--
+                    } else {
+                        var okl = lanqiu[plk].innerHTML
+                        Arrayb.push(okl)
+                    }
+                }
+                var pl = document.createElement("li");
+                pl.innerHTML = Arrayr.toString() + "|" + Arrayb.toString() + "<span class ='juy'>2元</span>" +
+                    "<span class ='juy xiu'>修改</span>" + "<span class ='shanc juy'>删除</span>"
+                document.querySelector(".qian").append(pl)
+                Arrayr = []
+                Arrayb = []
+            }
+            document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        
+        // 删除
+        var poijn = document.querySelector(".qian")
+        poijn.addEventListener("click", function (e) {
+            if (e.target.innerHTML == "删除") {
+                e.target.parentNode.remove()
+            }
+            document.querySelector("#totalZhuShu").innerHTML = poijn.children.length;
+            // 共多少注
+            if (poijn.children.length == 0) {
+                document.querySelector("#totalZhuShu").innerHTML = 0;
+            }
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 修改
+        poijn.addEventListener("click", function (e) {
+            if (e.target.innerHTML == "修改") {
+                var fath = e.target.parentNode
+                var dataa = fath.childNodes[0].data
+                var datab = dataa.split("|")
+                var rstring = datab[0]
+                var bstring = datab[1]
+                var rzu = rstring.split(",")
+                for (var i = 0; i < rzu.length; i++) {
+                    Arrayr[Arrayr.length] = rzu[i]
+                }
+                for (var i = 0; i < Arrayr.length; i++) {
+                    reqiu[Arrayr[i] - 1].style.backgroundColor = "red"
+                    reqiu[Arrayr[i] - 1].setAttribute("flag", 1)
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                }
+                var bzu = bstring.split(",")
+                for (var i = 0; i < bzu.length; i++) {
+                    Arrayb[Arrayb.length] = bzu[i]
+                }
+                for (var i = 0; i < Arrayb.length; i++) {
+                    lanqiu[Arrayb[i] - 1].style.backgroundColor = "blue"
+                    lanqiu[Arrayb[i] - 1].setAttribute("flag", 1)
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                }
+                e.target.innerHTML = "保存"
+            } else {
+              
+               
+                e.target.parentNode.innerHTML = Arrayr.toString() + "|" + Arrayb.toString() +
+                    "<span class ='juy'>2元</span>" +
+                    "<span class ='juy xiu'>修改</span>" + "<span class ='shanc juy'>删除</span>"
+                for (var i = 0; i < reqiu.length; i++) {
+                    reqiu[i].setAttribute("flag", "0")
+                    Arrayr = []
+                    reqiu[i].style.backgroundColor = "#d2d2d2"
+                    document.querySelector(".s1").innerHTML = "你已经选择了" + Arrayr.length + "个红球，"
+                }
+                for (var i = 0; i < lanqiu.length; i++) {
+                    lanqiu[i].setAttribute("flag", "0")
+                    Arrayb = []
+                    lanqiu[i].style.backgroundColor = "#d2d2d2"
+                    document.querySelector(".s2").innerHTML = Arrayb.length + "个蓝球，"
+                }
+                e.target.innerHTML = "修改"}
+        })
+        // 增加
+        document.querySelector(".up").addEventListener("click",function(){
+            document.querySelector("#beishu").value = Number(document.querySelector("#beishu").value)+1
+            // 计算金钱
+          document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 减少
+        document.querySelector(".down").addEventListener("click",function(){
+            if( document.querySelector("#beishu").value<=1){}
+           else(document.querySelector("#beishu").value = Number(document.querySelector("#beishu").value)-1)
+           document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+        // 用户输入倍数
+        document.querySelector("#beishu").addEventListener("blur",function(){
+            document.querySelector("#totalMoney").innerHTML =  poijn.children.length*2*document.querySelector("#beishu").value
+        })
+    </script>
+</body>
+
+</html>

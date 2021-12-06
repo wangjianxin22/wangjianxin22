@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>双色球</title>
+		<style>
+			.button1{
+				margin: 0 auto;
+				width: 200px;
+				height: 200px;
+				color: green;
+				font-weight: bolder;
+				font-size: 30px;
+				margin:0 700px;
+			}
+			.div1{
+				width: 100px;
+				height: 100px;
+				margin-right:60px ;
+				border-radius:50% ;
+				background-color: #FF0000;	
+				font-weight: bolder;
+				font-size:50px ;
+				line-height: 100px;
+				text-align: center;
+				float: left;
+			}
+			#div2{
+				width: 100px;
+				height: 100px;
+				margin-right:60px ;
+				border-radius:50% ;	
+				background-color: #0000FF;
+				font-weight: bolder;
+				font-size:50px ;
+				line-height: 100px;
+				text-align: center;
+				float: left;
+			}
+		</style>
+		<script>
+			function roll(){
+				var div1=document.getElementsByClassName("div1");
+				var reds=new Array(6);
+				for (var i=0;i<reds.length;i++) {
+					reds[i]=parseInt(Math.random()*(33-1+1)+1);
+					if(quChong(reds,i)==true){
+						i--;
+					}
+				}
+				for (var i=0;i<reds.length-1;i++) {
+					for(var j=0;j<reds.length-i-1;j++){
+						if(reds[j]>reds[j+1]){
+							var temp=reds[j];
+							reds[j]=reds[j+1];
+							reds[j+1]=temp;
+						}
+					}
+				}
+				var d1=document.getElementsByClassName("div1");
+				for (var i=0;i<d1.length;i++) {
+					d1[i].innerHTML=reds[i];
+				}
+				
+				var blue=parseInt(Math.random()*(16-1+1)+1);
+				var d2=document.getElementById("div2");
+				d2.innerHTML=blue;
+			}
+			
+			
+			function quChong(reds,index){
+				for (var i=0;i<index;i++) {
+					if(reds[index]==reds[i]){
+						return true;
+					}
+				}
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<input type="button" value="开 始 摇 奖" class="button1" onclick="roll()"/>
+		</div>
+		
+		<div class="div1">
+			
+		</div>
+		<div class="div1">
+			
+		</div>
+		<div class="div1">
+			
+		</div>
+		<div class="div1">
+			
+		</div>
+		<div class="div1">
+			
+		</div>
+		<div class="div1">
+			
+		</div>
+		<div id="div2">
+			
+		</div>
+	</body>
+</html>

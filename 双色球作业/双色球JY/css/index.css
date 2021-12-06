@@ -1,0 +1,167 @@
+body{text-align: center;}
+.ball{
+  width: 840px;
+  height: 220px;
+  margin: 20px auto;
+  text-align: left;
+}
+.ball .wrap-red{
+  width: 506px;
+  float: left;
+}
+.ball .wrap-blue{
+  width: 276px;
+  float: right;
+}
+.jx{
+  height: 30px;
+  text-align: right;
+  margin: 10px 0;
+}
+
+/*common*/
+.red{color: red;}
+
+/*选号球样式*/
+.ball li{
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius:100%;
+  margin: 3px;
+  background: rgba(160, 160, 160, 0.47);
+  cursor: pointer;    /* 变手 */
+  font-size: 14px;
+}
+.ball-red li:hover{
+  background:rgba(255, 0, 0, 0.25);
+  color: #fff;
+}
+.ball-blue li:hover{
+  background:rgba(0, 0, 255, 0.25);
+  color: #fff;
+}
+.ball-red li.on{
+  background:red;
+  color: #fff;
+}
+.ball-blue li.on{
+  background:blue;
+  color: #fff;
+}
+
+/*选区底部机选和文本状态*/
+.jx span{
+  color: #0f3f94;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.cur-state{
+  text-align: center;
+  font-size: 14px;
+}
+.cur-state span{
+  margin:0 10px;
+}
+/*添加到号码蓝 */
+#addToList{
+  background: url("../img/ssq_button_ver3.0.jpg") no-repeat 0 -236px;
+  border: none;
+  cursor: pointer;    
+  width: 182px;
+  height: 58px;
+  display: inline-block;
+  text-align: center;
+}
+#addToList:hover{
+  background-position: -184px -236px;
+}
+#addToList::after{
+  content: '';
+  display: inline-block;
+  width: 182px;
+  height: 24px;
+  background: url("../img/ssq_button_ver3.0.jpg") no-repeat 18px -89px #fef9f3;
+  margin-top: 34px;
+}
+#addToList.change{
+  background-position: -111px -200px;
+}
+#addToList.change:hover{
+  background-position: -297px -200px;
+}
+
+/*号码蓝*/
+.ball-list{
+  width: 640px;
+  height: 200px;
+  margin: 10px auto;
+}
+
+#ballUl{
+  width: 500px;
+  height: 100%;
+  overflow-y: auto;
+  float: left;
+}
+#ballUl li{
+  line-height: 30px;
+  height: 31px;
+  border-bottom: 1px solid #EEECEB;
+  padding: 0 5px;
+  vertical-align: middle;
+}
+#ballUl li.on{
+  background: blue;
+  color: #fff;
+}
+#ballUl li.on .amount{
+  color: #fff;
+}
+#ballUl li.on .del,#ballUl li.on .edit{
+  color: #FFcc00;
+}
+.code{
+  float: left;
+  width: 200px;
+  text-align: left;
+}
+.del,.edit,.amount{
+  float: right;
+  color: #999999;
+  line-height: 29px;
+  cursor: pointer;
+  margin: 0 6px 0 0;
+}
+.amount{
+  color: #000;
+}
+
+.right-btn{
+  width: 140px;
+  float: right;
+}
+.right-btn a{
+  display: block;
+  margin: 15px;
+  cursor: pointer;
+  background: url("http://888.gtimg.com/images/trade/public/p_trade_public.png") no-repeat 0 -93px;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 5px;
+  width: 68px;
+}
+
+.total-wrap{
+  height: 60px;
+  font-size: 14px;
+}
+/*增添倍数模块[[*/
+.b-block{position:relative;height:27px;width:87px;line-height:27px; display:inline-block;padding:1px; bottom:-10px;*bottom:-5px;}
+.b-block input{position:absolute;border:1px solid #c9c9c9;width:48px;height:22px;background-color:#fff;vertical-align:middle;text-align:center;font:bold 16px/23px Arial; left:19px;_left:18px;}
+.b-block .toward,.cp-choose .b-block .forward, .b-block .forward{ position:absolute;width:20px;vertical-align:middle;background: url("../img/ssq_button_ver3.0.jpg") no-repeat scroll 0 0 transparent;}
+.b-block .toward{height:25px;right:0px;text-indent:-9999px;overflow:hidden; position:absolute;background-position: -38px -117px; cursor: pointer;}
+.b-block .forward{height:25px;left:0px;text-indent:-9999px;overflow:hidden;position:absolute;background-position:0 -117px; cursor: pointer;}
+/*增添倍数模块]]*/

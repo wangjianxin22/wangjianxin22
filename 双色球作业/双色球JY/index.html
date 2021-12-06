@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+	  <!--选号区-->
+	  <div class="ball">
+	    <div class="wrap-red">
+  	    <ul class="ball-red">
+			<!-- <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li> -->
+  	    </ul>
+  	    <div class="jx">
+  	      <select id="jx_red">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+          </select>
+          <span id="jx_btn_red">机选红球</span>
+          <span class="clear">清空</span>
+  	    </div>
+	    </div>
+	    <div class="wrap-blue">
+        <ul class="ball-blue">          <!-- <li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li> -->
+        </ul>
+        <div class="jx">
+          <select id="jx_blue">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+          </select>
+          <span id="jx_btn_blue">机选蓝球</span>
+          <span class="clear">清空</span>
+        </div>
+      </div>
+	    <p class="cur-state clearfix">
+	      您选择了<span id="redNum">0</span>个红球，<span id="blueNum">0</span>个篮球，共<span id="curZhuShu">0</span>注，共<span id="curMoney" class="red">0</span>元
+	    </p>
+	  </div>
+	  <!--添加到号码蓝按钮-->
+	  <a id="addToList"></a>
+	  <!--号码蓝-->
+	  <div class="ball-list">
+	    <ul id="ballUl">
+	      <!--<li>
+	        <span class="code test-ellipsis">08,12,13,23,25,28|05</span><span class="del">删除</span><span class="edit">修改</span><span class="amount">2元</span>
+	      </li>-->
+	    </ul>
+	    <div class="right-btn">
+	      <a id="jx1">机选1注</a>
+	      <a id="jx5">机选5注</a>
+	      <a id="jx10">机选10注</a>
+	      <a id="ballListClear">清空列表</a>
+	    </div>
+	    <div class="total-wrap clearfix">
+	             共<span id="totalZhuShu">0</span>注 &nbsp; &nbsp;
+	             我要买
+	        <span class="b-block"> <span class="forward down" title="减少">减少</span><input type="text" id="beishu" value="1" maxlength="2"><span hidefocus="true" class="toward up" title="增加">增加</span></span>     
+	             倍 &nbsp; &nbsp;
+	             共<span id="totalMoney" class="red">0</span>元
+	    </div>
+	  </div>
+		<script type="text/javascript">
+			// // 封装数据  统一管理
+			// var datas = {
+			// 	arrpiceRedArr:[],
+			// 	arrpiceBlueArr:[],
+			// 	// 一注数据
+			// 	onePiece:'',
+			// },
+			// // 封装函数  统一管理
+			// funcS = {
+			// 	// 添加球球
+			// 	addLis:function (num,uls){
+			// 		for(var i = 1; i<=num;i++){
+			// 			var redlis = document.createElement('li');
+			// 			redlis.style.background = 'rgba(160, 160, 160, 0.47)';
+			// 			if(i<10){
+			// 				redlis.innerHTML='0'+i;
+			// 			}else{
+			// 				redlis.innerHTML = i;
+			// 			}
+			// 			uls.appendChild(redlis);
+			// 		}
+			// 	},
+			// 	// 点击球球
+			// 	clickLis:function(e,dom,color,data,numDom){
+			// 		if(e.target.nodeName == 'UL'){
+			// 		}else if(e.target.nodeName == 'LI' &&e.target.style.background == 'rgba(160, 160, 160, 0.47)'){
+			// 			// 选中的变颜色
+			// 			e.target.style.background = color;
+			// 			// 将选中的数据拿进来
+			// 			data.push(e.target.innerHTML);
+			// 		}else{
+			// 			// 删掉对应的数据
+			// 			for(var i in data){
+			// 				if(data[i] == e.target.innerHTML){
+			// 					data.splice(i,1);
+			// 				}
+			// 			}
+			// 			// 第二种删除方法
+			// 			// data.forEach((item,index)=>{
+			// 			// 	if(item == e.target.innerHTML){
+			// 			// 		data.splice(index,1);
+			// 			// 	}
+			// 			// })
+			// 			e.target.style.background = 'rgba(160, 160, 160, 0.47)';
+			// 		}
+			// 		// 更改展示数据
+			// 		numDom.innerHTML = data.length;
+			// 	},
+			// 	// 更改红球个数
+			// 	setredNum:function(dom,num){
+			// 		dom.innerHTML = num;
+			// 	}
+			// };
+			// // 得到红球个数dom
+			// var redNum = document.querySelector('#redNum');
+			// var blueNum = document.querySelector('#blueNum');
+			// // 添加左侧红球
+			// var ballReds = document.querySelector('.ball-red');
+			// funcS.addLis(33,ballReds);
+			// // 添加右侧篮球
+			// var ballBlues = document.querySelector('.ball-blue');
+			// funcS.addLis(16,ballBlues);
+			// // 绑定点击事件
+			// // 红球
+			// ballReds.addEventListener('click',function(e){
+			// 	funcS.clickLis(e,this,'red',datas.arrpiceRedArr,redNum)
+			// })
+			// // 蓝球
+			// ballBlues.addEventListener('click',function(e){
+			// 	funcS.clickLis(e,this,'blue',datas.arrpiceBlueArr,blueNum)
+			// })
+			// // 添加事件
+			// var addbulls = document.querySelector('#addToList');
+			// addbulls.addEventListener('click',function(e){
+			// 	if(datas.arrpiceRedArr.length == 6 && datas.arrpiceBlueArr.length == 1){
+			// 		datas.onePiece = datas.arrpiceRedArr.join() + '|' + datas.arrpiceBlueArr.join();
+			// 		var str = '<li><span class="code test-ellipsis">'+datas.onePiece+'</span><span class="del">删除</span><span class="edit">修改</span><span class="amount">'+'2元</span></li>';
+			// 		document.querySelector('#ballUl').innerHTML = str;
+			// 	}else{
+			// 		alert('球不对');
+			// 	}
+			// })
+		</script>
+		<script>
+			// // 数据封装
+			var datas={
+				redBallsArr:[],
+				BlueBallsArr:[],
+				onePiece:'',
+			},funcS = {
+				// 生成红蓝小球
+				ballsFun:function(domFather,num){
+					for(var i = 1; i<=num;i++){
+							var redlis = document.createElement('li');
+							redlis.style.background = 'rgba(160, 160, 160, 0.47)';
+							if(i<10){
+								redlis.innerHTML='0'+i;
+							}else{
+								redlis.innerHTML = i;
+							}
+							domFather.appendChild(redlis);
+					}
+				},
+				clickBall:function(e,data,color,num){
+					if(e.target.nodeName == 'UL'){}
+					else if(e.target.style.background == 'rgba(160, 160, 160, 0.47)'){
+						e.target.style.background = color;
+						data.push(e.target.innerHTML);   
+					}else{
+						e.target.style.background = 'rgba(160, 160, 160, 0.47)';
+							// 删掉对应的数据
+							for(var i in data){
+								if(data[i] == e.target.innerHTML){
+									data.splice(i,1);
+								}
+							}
+					}
+					num.innerHTML = data.length;
+					console.log(data)
+					}
+			}
+	// 点击事件
+		// 生成左边的球
+			var uls = document.querySelector('.ball-red');
+			funcS.ballsFun(uls,33);
+		// 生成右边的球
+			var ulBlues = document.querySelector('.ball-blue')
+			funcS.ballsFun(ulBlues,16);
+		// 处理点击左侧红球事件
+		    var redNum = document.querySelector('#redNum');
+			uls.addEventListener('click',function(e){
+				funcS.clickBall(e,datas.redBallsArr,'red',redNum);
+			})
+			// 处理点击右侧蓝球事件
+		    var blueNum = document.querySelector('#blueNum');
+			ulBlues.addEventListener('click',function(e){
+				funcS.clickBall(e,datas.BlueBallsArr,'blue',blueNum);
+			})
+			// 添加事件
+			var addbulls = document.querySelector('#addToList');
+			addbulls.addEventListener('click',function(e){
+			if(datas.redBallsArr.length == 6 && datas.BlueBallsArr.length == 1){
+				datas.onePiece = datas.redBallsArr.join() + '|' + datas.BlueBallsArr.join();
+				var str = '<li><span class="code test-ellipsis">'+datas.onePiece+'</span><span class="del">删除</span><span class="edit">修改</span><span class="amount">'+'2元</span></li>';
+				document.querySelector('#ballUl').innerHTML = str;
+			}else{
+				alert('球不对');
+			}
+			})
+
+
+		</script>
+	</body>
+</html>
